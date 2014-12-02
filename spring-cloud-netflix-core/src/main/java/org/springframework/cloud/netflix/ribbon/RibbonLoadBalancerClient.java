@@ -1,9 +1,8 @@
 package org.springframework.cloud.netflix.ribbon;
 
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Throwables;
@@ -23,8 +22,8 @@ public class RibbonLoadBalancerClient implements LoadBalancerClient {
 
     private SpringClientFactory clientFactory;
 
-	private Map<String, ILoadBalancer> balancers = new HashMap<>();
-    private Map<String, RibbonLoadBalancerContext> contexts = new HashMap<>();
+	private ConcurrentHashMap<String, ILoadBalancer> balancers = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, RibbonLoadBalancerContext> contexts = new ConcurrentHashMap<>();
 
 	public RibbonLoadBalancerClient(RibbonClientPreprocessor ribbonClientPreprocessor, SpringClientFactory clientFactory, List<BaseLoadBalancer> balancers) {
 		this.ribbonClientPreprocessor = ribbonClientPreprocessor;
